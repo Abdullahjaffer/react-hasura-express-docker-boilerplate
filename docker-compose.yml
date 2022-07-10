@@ -1,0 +1,59 @@
+version: "3.8"
+services:
+  server:
+    build: ./server/
+    ports:
+      - "3000:3000"
+    env_file: .env
+    volumes:
+      - ./server/:/app/
+      - /app/node_modules
+    restart: always
+
+  graphql-engine:
+    image: hasura/graphql-engine:v2.8.4
+    ports:
+      - "8080:8080"
+    restart: always
+    # we keep hasura evironment here as it depends on variables from other services
+    # we don't want to change the same thing in multiple variables
+    environment:
+      ## postgres database in docker to store Hasura metadata
+      # if commented means you are usiing the same db as the db for project
+      # HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://root:root@postgresql:5432/hasura_meta
+      # External host database for query
+      HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql:5432/${POSTGRES_DB}
+      ## enable the console served by server
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "false" # set to "false" to disable console
+      ## enable debugging mode. It is recommended to disable this in production
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      ## uncomment next line to set an admin secret
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+      # Actions webhook url, this points to the in built express server
+      HASURA_GRAPHQL_ACTIONS_HANDLER_WEBHOOK_BASEURL: http://server:3000/actions/
+      # public role
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
+      ACTION_BASE_URL: http://server:3000/actions/
+      EVENT_SECRET_KEY: ${EVENT_SECRET_KEY}
+
+  postgresql:
+    image: postgres
+    # if we need to map postgres to local environment use this
+    # ports:
+    #   - 5454:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80"
