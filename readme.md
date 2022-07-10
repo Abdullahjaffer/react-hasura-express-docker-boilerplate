@@ -75,7 +75,7 @@ sudo docker rmi IMAGENAME
 sudo docker rmi $(sudo docker images -a -q)
 ```
 
-### Volumnes
+### Volumes
 #### Create volume
 ```sh
 docker volume create db_data
