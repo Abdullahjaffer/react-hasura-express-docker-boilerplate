@@ -5,12 +5,6 @@ In order to use hasura, create migrations and metadata. ONLY USE THIS FOR DEVELO
 ```sh
 npm i -g hasura-cli
 ```
-- Assuming you have the existing database use and using first time
-```sh
-hasura migrate apply --version 1637934675570 --skip-execution
-```
-> Note: change `1637934675570` to what ever first migration you have
-> Note: remove `--skip-execution` if the database is new and doesn't have the tables for data
 - Always pull and apply migrations before developing
 ```sh
 hasura migrate apply
@@ -37,7 +31,7 @@ hasura migrate apply --endpoint <graphql-engine-endpoint> --admin-secret <admin-
 hasura metadata apply --endpoint <graphql-engine-endpoint> --admin-secret <admin-secret>
 ```
 
-## Don't use this
+## Don't use this if you have a new database
 
 ### Create initial migration
 > Note: We need to run this initial process in the start. Once only.

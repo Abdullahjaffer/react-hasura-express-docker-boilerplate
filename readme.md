@@ -1,23 +1,12 @@
 # Development
 
-#### Local Postgres Setup
-add following lines under Allow replication connections from localhost, to etc/postgresql/<>postgres_version<>/main/pg_hba.conf
-```sh
-host    all             all             0.0.0.0/0               md5
-host    all             all             ::/0                    md5
-```
-
-
-Edit following line under CONNECTIONS AND AUTHENTICATION to to etc/postgresql/<>postgres_version<>/main/postgresql.conf
-```sh
-local_addresses = '*'
-```
 #### Hasura
 Start containers and go to localhost:9695
 
 #### Server
 Start containers and use localhost:3000. Changes in server folder are automatically mapped to the port with nodemon
-
+> Note: you will need to rebuild if you install a new package
+> Note: uses the same .env file from the root
 
 
 ## Docker Commands
@@ -25,9 +14,9 @@ Start containers and use localhost:3000. Changes in server folder are automatica
 ### Containers
 #### Starting the containers with build
 ```sh
-sudo docker-compose up --build --force-recreate --no-deps -d
+sudo docker-compose up --build --force-recreate --no-deps
 ```
-> Note: remove `-d` to view logs
+> Note: add `-d` to run in dettached mode
 
 
 #### Starting the containers without build
@@ -105,4 +94,17 @@ sudo docker volume prune
 #### Remove volume
 ```sh
 sudo docker volume rm volume_name
+```
+
+## Local Postgres Setup
+add following lines under Allow replication connections from localhost, to etc/postgresql/<>postgres_version<>/main/pg_hba.conf
+```sh
+host    all             all             0.0.0.0/0               md5
+host    all             all             ::/0                    md5
+```
+
+
+Edit following line under CONNECTIONS AND AUTHENTICATION to to etc/postgresql/<>postgres_version<>/main/postgresql.conf
+```sh
+local_addresses = '*'
 ```
