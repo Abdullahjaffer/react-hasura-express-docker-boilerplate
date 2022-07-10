@@ -22,6 +22,9 @@ This service is described in docker and is used with all the components describe
 
 # Development
 
+
+> Note: Rename .env.development to .env
+
 #### Hasura
 Start containers and go to localhost:9695
 
