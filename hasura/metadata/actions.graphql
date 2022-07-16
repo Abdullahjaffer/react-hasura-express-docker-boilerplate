@@ -1,0 +1,15 @@
+type Query {
+  userLogin(
+    args: UserLoginInput!
+  ): UserLoginOutput
+}
+
+input UserLoginInput {
+  email: String!
+  password: String!
+}
+
+type UserLoginOutput {
+  accessToken: String!
+}
+

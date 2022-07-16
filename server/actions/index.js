@@ -1,7 +1,8 @@
-const router = require("express").Router;
+import express from "express";
+import authenticationRouter from "./authentication/index.js";
 
-router.get("/", (req, res) => {
-	res.send("hello world");
-});
+const router = express.Router();
 
-module.exports = router;
+router.use("/authentication", authenticationRouter);
+
+export default router;

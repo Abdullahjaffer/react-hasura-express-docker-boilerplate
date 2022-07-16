@@ -1,20 +1,22 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
-require("dotenv").config();
-console.log(process.env.SOME_ENV);
+import cors from "cors";
+import dotenv from "dotenv";
+import express from "express";
+import actions from "./actions/index.js";
 
-const actions = require("./actions");
+dotenv.config();
+const app = express();
 
 //middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.use(cors());
 
 //actions
-app.use("/action", actions);
+app.use("/actions", actions);
 
 //events
 app.use("/events", actions);
+
+app.use("*", (req, res) => {
+	console.log(req);
+});
 
 app.listen(3000);

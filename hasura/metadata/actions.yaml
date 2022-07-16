@@ -1,6 +1,14 @@
-actions: []
+actions:
+  - name: userLogin
+    definition:
+      kind: ""
+      handler: '{{ACTION_BASE_URL}}/authentication/login'
+      timeout: 60
+    comment: user login auth
 custom_types:
   enums: []
-  input_objects: []
-  objects: []
+  input_objects:
+    - name: UserLoginInput
+  objects:
+    - name: UserLoginOutput
   scalars: []
