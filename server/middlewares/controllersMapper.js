@@ -8,8 +8,7 @@ const constrollersMap = {
 };
 
 function constrollersMapper(req, res) {
-	console.log("in conroller mapper");
-	let controller = constrollersMap(req.actionType);
+	let controller = constrollersMap[req.actionType];
 	if (controller) {
 		return controller(req, res);
 	}
