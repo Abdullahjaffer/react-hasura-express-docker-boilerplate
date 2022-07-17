@@ -2,13 +2,13 @@ actions:
   - name: userLogin
     definition:
       kind: ""
-      handler: '{{ACTION_BASE_URL}}/authentication/login'
+      handler: '{{ACTION_BASE_URL}}'
       timeout: 60
     comment: user login auth
   - name: userRegister
     definition:
       kind: synchronous
-      handler: '{{ACTION_BASE_URL}}/authentication/register'
+      handler: '{{ACTION_BASE_URL}}'
       timeout: 60
 custom_types:
   enums: []

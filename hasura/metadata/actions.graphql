@@ -1,12 +1,15 @@
 type Query {
   userLogin(
-    args: UserLoginInput!
+    name: String!
+    password: String!
   ): UserLoginOutput
 }
 
 type Mutation {
   userRegister(
-    args: UserRegisterInput!
+    name: String!
+    email: String!
+    password: String!
   ): UserRegisterOutput
 }
 
