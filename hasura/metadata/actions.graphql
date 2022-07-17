@@ -4,12 +4,28 @@ type Query {
   ): UserLoginOutput
 }
 
+type Mutation {
+  userRegister(
+    args: UserRegisterInput!
+  ): UserRegisterOutput
+}
+
 input UserLoginInput {
   email: String!
   password: String!
 }
 
+input UserRegisterInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
 type UserLoginOutput {
+  accessToken: String!
+}
+
+type UserRegisterOutput {
   accessToken: String!
 }
 

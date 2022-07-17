@@ -5,10 +5,17 @@ actions:
       handler: '{{ACTION_BASE_URL}}/authentication/login'
       timeout: 60
     comment: user login auth
+  - name: userRegister
+    definition:
+      kind: synchronous
+      handler: '{{ACTION_BASE_URL}}/authentication/register'
+      timeout: 60
 custom_types:
   enums: []
   input_objects:
     - name: UserLoginInput
+    - name: UserRegisterInput
   objects:
     - name: UserLoginOutput
+    - name: UserRegisterOutput
   scalars: []
