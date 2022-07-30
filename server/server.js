@@ -20,6 +20,7 @@ app.use("/actions", actions);
 
 //events
 app.use("/events", events);
+
 app.use("*", (req, res) => {
 	res.status(404).json({
 		message: "Resource not found",

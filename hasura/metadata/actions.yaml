@@ -4,12 +4,16 @@ actions:
       kind: ""
       handler: '{{ACTION_BASE_URL}}'
       timeout: 60
+    permissions:
+      - role: public
     comment: user login auth
   - name: userRegister
     definition:
       kind: synchronous
       handler: '{{ACTION_BASE_URL}}'
       timeout: 60
+    permissions:
+      - role: public
 custom_types:
   enums: []
   input_objects:

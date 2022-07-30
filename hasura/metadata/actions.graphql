@@ -1,6 +1,6 @@
 type Query {
   userLogin(
-    name: String!
+    email: String!
     password: String!
   ): UserLoginOutput
 }

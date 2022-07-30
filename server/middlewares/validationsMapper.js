@@ -1,5 +1,6 @@
 import _ from "lodash";
 import ACTION_NAMES from "../constants/actionNames.js";
+import hasuraError from "../utils/hasuraError.js";
 import { userRegisterValidation } from "../validations/authentication.js";
 
 const validationsMap = {
@@ -14,10 +15,7 @@ function validationsMapper(req, res, next) {
 				abortEarly: false,
 			});
 			if (error) {
-				return res.status(400).json({
-					message: "Validation Error",
-					extensions: error.details,
-				});
+				return hasuraError(res, "Validation Error", error.details);
 			}
 		}
 		if (validationSchema.params) {
@@ -25,10 +23,7 @@ function validationsMapper(req, res, next) {
 				abortEarly: false,
 			});
 			if (error) {
-				return res.status(400).json({
-					message: "Validation Error",
-					extensions: error.details,
-				});
+				return hasuraError(res, "Validation Error", error.details);
 			}
 		}
 		next();
