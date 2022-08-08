@@ -9,7 +9,8 @@ const HASURA_GRAPHQL_JWT_SECRET = {
 
 const JWT_CONFIG = {
 	algorithm: HASURA_GRAPHQL_JWT_SECRET.type,
-	expiresIn: "10h",
+	// uses seconds
+	expiresIn: 60 * 60 * 24,
 };
 
 export function generateJWT(params) {

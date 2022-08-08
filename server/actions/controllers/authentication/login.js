@@ -18,6 +18,11 @@ async function userLoginController(req, res) {
 					allowedRoles: [user.role],
 					otherClaims: {
 						"X-Hasura-User-Id": user.id,
+						user: {
+							email: user.email,
+							name: user.name,
+							role: user.role,
+						},
 					},
 				}),
 			});

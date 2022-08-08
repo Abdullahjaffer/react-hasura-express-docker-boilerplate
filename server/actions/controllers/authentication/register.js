@@ -12,14 +12,19 @@ async function userRegisterController(req, res) {
 
 	if (!doesUserExist) {
 		const {
-			insert_users_one: { id: userId, role },
+			insert_users_one: { role, ...user },
 		} = await createNewUser(email, name, password, CONSTANTS.DEFAULT_ROLE);
 		res.send({
 			accessToken: generateJWT({
 				defaultRole: role,
 				allowedRoles: [role],
 				otherClaims: {
-					"X-Hasura-User-Id": userId,
+					"X-Hasura-User-Id": user.id,
+					user: {
+						email: user.email,
+						name: user.name,
+						role: user.role,
+					},
 				},
 			}),
 		});
