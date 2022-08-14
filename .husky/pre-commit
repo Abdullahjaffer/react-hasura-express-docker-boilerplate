@@ -3,3 +3,6 @@
 
 cd frontend
 npx --no-install lint-staged
+npx sort-package-json
+cd ../backend/server
+npx sort-package-json
