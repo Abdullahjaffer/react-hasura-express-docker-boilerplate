@@ -1,0 +1,27 @@
+{
+  "name": "hasura-express-docker-boilerplate",
+  "version": "1.0.0",
+  "description": "Hasura is a backend graphql resolver that helps creating backends fast and optimized out of the box.",
+  "main": "index.js",
+  "dependencies": {
+    "husky": "^7.0.4"
+  },
+  "devDependencies": {
+    "@umijs/fabric": "^2.11.1",
+    "husky": "^7.0.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abdullahjaffer/hasura-express-docker-boilerplate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abdullahjaffer/hasura-express-docker-boilerplate/issues"
+  },
+  "homepage": "https://github.com/Abdullahjaffer/hasura-express-docker-boilerplate#readme"
+}
