@@ -52,6 +52,6 @@ npm run lint:fix
 npm test
 ```
 
-## More
+## More help
 
-You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
+[Antd Pro Website](https://pro.ant.design). [Antd Pro Github](https://github.com/ant-design/ant-design-pro).
