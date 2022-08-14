@@ -7,7 +7,8 @@
     "husky": "^7.0.4"
   },
   "devDependencies": {
-    "@umijs/fabric": "^2.11.1",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "husky": "^7.0.4"
   },
   "scripts": {
