@@ -7,7 +7,7 @@
 Start containers and go to localhost:9695
 
 #### Server
-Start containers and use localhost:3000. Changes in server folder are automatically mapped to the port with nodemon
+Start containers and use localhost:3000. Changes in the server folder are automatically mapped to the port with nodemon
 > Note: you will need to rebuild if you install a new package
 > Note: uses the same .env file from the root
 
@@ -19,7 +19,7 @@ Start containers and use localhost:3000. Changes in server folder are automatica
 ```sh
 sudo docker-compose up --build --force-recreate --no-deps
 ```
-> Note: add `-d` to run in dettached mode
+> Note: add `-d` to run in detached mode
 
 
 #### Starting the containers without build

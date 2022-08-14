@@ -1,5 +1,5 @@
 # Development
-In order to use hasura, create migrations and metadata. ONLY USE THIS FOR DEVELOPMENT
+To use Hasura, create migrations and metadata. ONLY USE THIS FOR DEVELOPMENT
 
 - Install hasura-cli with
 ```sh
@@ -21,7 +21,7 @@ hasura console --envfile ../.env
 
 ### Applying changes to Remote (Can be staging and production server)
 
-#### Applying migations
+#### Applying migrations
 ```sh
 hasura migrate apply --endpoint <graphql-engine-endpoint> --admin-secret <admin-secret> --database-name <database-name>
 ```
@@ -33,8 +33,8 @@ hasura metadata apply --endpoint <graphql-engine-endpoint> --admin-secret <admin
 
 ## Don't use this if you have a new database
 
-### Create initial migration
-> Note: We need to run this initial process in the start. Once only.
+### Create the initial migration
+> Note: We need to run this initial process at the start. Once only.
 
 
 #### Initialize
