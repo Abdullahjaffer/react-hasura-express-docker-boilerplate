@@ -6,3 +6,30 @@ npx --no-install lint-staged
 npx sort-package-json
 cd ../backend/server
 npx sort-package-json
+
+echo "Checking for node_modules"
+cd ../..
+if [ -d "frontend/node_modules" ] 
+then
+    echo "Directory frontend/node_modules exists." 
+else
+    echo "Error: Directory /frontend/node_modules does not exists."
+    echo "Please run yarn setup"
+    exit 1
+fi
+if [ -d "backend/server/node_modules" ] 
+then
+    echo "Directory backend/server/node_modules exists." 
+else
+    echo "Error: Directory backend/server/node_modules does not exists."
+    echo "Please run yarn setup"
+    exit 1
+fi
+if [ -d "node_modules" ] 
+then
+    echo "Directory ./node_modules exists." 
+else
+    echo "Error: Directory ./node_modules does not exists."
+    echo "Please run yarn setup"
+    exit 1
+fi

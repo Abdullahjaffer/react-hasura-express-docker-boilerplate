@@ -14,7 +14,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "start-be:dev": "sh scripts/start-backend-dev.sh"
+    "start-be:dev": "sh scripts/start-backend-dev.sh",
+    "setup": "sh scripts/setup.sh"
   },
   "repository": {
     "type": "git",
