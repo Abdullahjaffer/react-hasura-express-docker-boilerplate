@@ -1,6 +1,25 @@
 import bcrypt from "bcrypt";
 import { gql } from "graphql-request";
-import { queryHasura } from "../../utils/queryHasura.js";
+import { queryHasura } from "../utils/queryHasura.js";
+
+export const getUserById = (id) =>
+	queryHasura
+		.request(
+			gql`
+				query MyQuery($id: uuid) {
+					users(where: { id: { _eq: $id } }) {
+						role
+						name
+						email
+						id
+					}
+				}
+			`,
+			{
+				id,
+			}
+		)
+		.then(({ users }) => users[0]);
 
 export const getUser = (email) =>
 	queryHasura.request(
@@ -27,7 +46,7 @@ export const createNewUser = async (email, name, password, role) =>
 				$email: String!
 				$name: String = ""
 				$password: String = ""
-				$role: role_enum = editor
+				$role: role_enum
 			) {
 				insert_users_one(
 					object: {

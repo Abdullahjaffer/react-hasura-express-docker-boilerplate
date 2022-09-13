@@ -5,6 +5,7 @@ actions:
       handler: '{{ACTION_BASE_URL}}'
       timeout: 60
     permissions:
+      - role: user
       - role: public
     comment: user login auth
   - name: userRegister
@@ -13,6 +14,8 @@ actions:
       handler: '{{ACTION_BASE_URL}}'
       timeout: 60
     permissions:
+      - role: user
+      - role: authenticated-user
       - role: public
 custom_types:
   enums: []

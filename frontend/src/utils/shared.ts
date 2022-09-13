@@ -1,3 +1,5 @@
+import { COOKIE_NAMES } from '@/constants/cookieNames';
+
 export function setCookie(cname: string, cvalue: string, exdays: number) {
   const d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
@@ -23,4 +25,9 @@ export function getCookie(cname: string) {
 
 export function eraseCookie(cname: string) {
   document.cookie = cname + '=; Max-Age=-99999999;';
+}
+
+export function getTokenFromSession() {
+  const token = sessionStorage.getItem(COOKIE_NAMES.JWT);
+  return token;
 }

@@ -5,19 +5,14 @@ import { PageLoading, SettingDrawer } from '@ant-design/pro-components';
 import { ApolloProvider } from '@apollo/client';
 import { ConfigProvider } from 'antd';
 import React, { Suspense } from 'react';
-import type { RunTimeLayoutConfig } from 'umi';
+import type { IRouteProps, RunTimeLayoutConfig } from 'umi';
 import defaultSettings from '../config/defaultSettings';
 import apolloClient from './apolloClient';
 import validateMessages from './components/Errors/validateMessages';
 
 // const isDev = process.env.NODE_ENV === 'development';
 
-const CombinedProviders = ({ children, routes }: any) => {
-  const newChildren = React.cloneElement(children, {
-    ...children.props,
-    routes,
-  });
-
+const combinedProviders = (props: any) => {
   return (
     <Suspense fallback={<PageLoading />}>
       <ConfigProvider
@@ -27,14 +22,14 @@ const CombinedProviders = ({ children, routes }: any) => {
         }}
         locale={{ locale: 'en-US' }}
       >
-        <ApolloProvider client={apolloClient}>{newChildren}</ApolloProvider>
+        <ApolloProvider client={apolloClient} {...props} />
       </ConfigProvider>
     </Suspense>
   );
 };
 
-export const rootContainer = (container: JSX.Element) => {
-  return React.createElement(CombinedProviders, null, container);
+export const rootContainer = (container: JSX.Element, opts: any) => {
+  return React.createElement(combinedProviders, opts, container);
 };
 
 export const initialStateConfig = {
@@ -65,7 +60,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       // }
     },
     links: [],
-    menuHeaderRender: undefined,
+    // menuHeaderRender: undefined,
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
     // 增加一个 loading 的状态
@@ -99,3 +94,13 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     ...initialState?.settings,
   };
 };
+
+// Routings
+
+interface IPatchRouterProps {
+  routes: IRouteProps[];
+}
+export function patchRoutes({ routes }: IPatchRouterProps) {
+  console.log(routes);
+  // routes.unshift();
+}

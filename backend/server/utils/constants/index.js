@@ -1,5 +1,5 @@
 const CONSTANTS = {
-	DEFAULT_ROLE: "author",
+	DEFAULT_ROLE: "authenticated-user",
 };
 
 export default CONSTANTS;

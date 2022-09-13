@@ -36,16 +36,15 @@ services:
       HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
       # Actions webhook url, this points to the in built express server
       HASURA_GRAPHQL_ACTIONS_HANDLER_WEBHOOK_BASEURL: http://server:3000/actions/
-      # public role
-      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
       ACTION_BASE_URL: http://server:3000/actions/
       EVENT_SECRET_KEY: ${EVENT_SECRET_KEY}
-
+      HASURA_GRAPHQL_AUTH_HOOK: http://server:3000/verify
+      
   postgresql:
     image: postgres
     # if we need to map postgres to local environment use this
-    # ports:
-    #   - 5454:5432
+    ports:
+      - 5454:5432
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

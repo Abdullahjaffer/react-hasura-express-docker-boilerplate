@@ -1,2 +1,4 @@
+- "!include public_boards.yaml"
+- "!include public_projects.yaml"
 - "!include public_role.yaml"
 - "!include public_users.yaml"

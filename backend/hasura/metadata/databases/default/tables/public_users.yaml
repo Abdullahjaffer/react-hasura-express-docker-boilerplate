@@ -5,3 +5,19 @@ object_relationships:
   - name: roleByRole
     using:
       foreign_key_constraint_on: role
+array_relationships:
+  - name: projects
+    using:
+      foreign_key_constraint_on:
+        column: owner
+        table:
+          schema: public
+          name: projects
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - email
+        - id
+        - name
+      filter: {}

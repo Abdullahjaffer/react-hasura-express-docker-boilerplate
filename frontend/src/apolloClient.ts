@@ -1,19 +1,39 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 import { HttpLink, split } from '@apollo/client';
-import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { getMainDefinition } from '@apollo/client/utilities';
-import { createClient } from 'graphql-ws';
+
+import { setContext } from '@apollo/client/link/context';
+import { WebSocketLink } from '@apollo/client/link/ws';
+import { getTokenFromSession } from './utils/shared';
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = getTokenFromSession();
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      Authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
 
 const httpLink = new HttpLink({
   uri: process.env.UMI_APP_GRAPHQL_QUERY_PATH,
 });
 
-const wsLink = new GraphQLWsLink(
-  createClient({
-    url: 'ws://localhost:4000/subscriptions',
-  }),
-);
+const wsLink = new WebSocketLink({
+  uri: process.env.UMI_APP_GRAPHQL_WS_PATH as string,
+  options: {
+    reconnect: true,
+    connectionParams: {
+      headers: {
+        authorization: `Bearer ${getTokenFromSession()}`,
+      },
+    },
+  },
+});
 
 // The split function takes three parameters:
 //
@@ -26,7 +46,7 @@ const splitLink = split(
     return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
   },
   wsLink,
-  httpLink,
+  authLink.concat(httpLink),
 );
 
 const apolloClient = new ApolloClient({

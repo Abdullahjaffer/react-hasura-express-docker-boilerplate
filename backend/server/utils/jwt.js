@@ -1,25 +1,33 @@
 import jwt from "jsonwebtoken";
+import { getUserById } from "../services/user.js";
 
-const HASURA_GRAPHQL_JWT_SECRET = {
-	type: process.env.HASURA_JWT_SECRET_TYPE || "HS256",
+const JWT_SECRET = {
+	type: process.env.JWT_SECRET_TYPE || "HS256",
 	key:
-		process.env.HASURA_JWT_SECRET_KEY ||
+		process.env.JWT_SECRET_KEY ||
 		"this-is-a-generic-HS256-secret-key-and-you-should-really-change-it",
 };
 
 const JWT_CONFIG = {
-	algorithm: HASURA_GRAPHQL_JWT_SECRET.type,
+	algorithm: JWT_SECRET.type,
 	// uses seconds
 	expiresIn: 60 * 60 * 24,
 };
 
-export function generateJWT(params) {
+// function assumes user exists
+export async function generateJWT(userId) {
+	const { role, name, email, id } = await getUserById(userId);
 	const payload = {
-		"https://hasura.io/jwt/claims": {
-			"x-hasura-allowed-roles": params.allowedRoles,
-			"x-hasura-default-role": params.defaultRole,
-			...params.otherClaims,
+		user: {
+			role,
+			name,
+			email,
+			id,
 		},
 	};
-	return jwt.sign(payload, HASURA_GRAPHQL_JWT_SECRET.key, JWT_CONFIG);
+	return jwt.sign(payload, JWT_SECRET.key, JWT_CONFIG);
+}
+
+export function verifyToken(token) {
+	return jwt.verify(token, JWT_SECRET.key, JWT_CONFIG);
 }

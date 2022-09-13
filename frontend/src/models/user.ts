@@ -3,9 +3,8 @@ import { eraseCookie, getCookie, setCookie } from '@/utils/shared';
 import { gql, useMutation } from '@apollo/client';
 import jwt_decode from 'jwt-decode';
 import { parse } from 'querystring';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { history } from 'umi';
-import { CONSTANTS } from '../constants';
 import { COOKIE_NAMES } from './../constants/cookieNames';
 
 interface IVars {
@@ -39,13 +38,16 @@ const getUserFormCookies = () => {
       eraseCookie(COOKIE_NAMES.JWT);
       return {};
     } else {
-      return parsed[CONSTANTS.JWT.CLAIM_NAME]?.user;
+      return {
+        ...parsed.user,
+        token: jwt,
+      };
     }
   }
   return {};
 };
 
-export default function () {
+export default function useUserModel() {
   const [login, loginState] = useMutation(LOGIN, {
     client: apolloClient,
   });
@@ -63,6 +65,7 @@ export default function () {
       if (autoLogin) {
         setCookie(COOKIE_NAMES.JWT, data.userLogin.accessToken, 3);
         setUser(getUserFormCookies());
+        sessionStorage.setItem(COOKIE_NAMES.JWT, getUserFormCookies().token);
         const parsed = parse(history.location.search?.substring(1));
         if (parsed.redirect) {
           history.push(parsed.redirect as string);
@@ -73,25 +76,35 @@ export default function () {
     });
   }, []);
 
-  const registerRequest = useCallback(({ email, password, autoLogin, name }: IVars) => {
-    register({
-      variables: {
-        email,
-        password,
-        name,
-      },
-    }).then(({ data }) => {
-      if (autoLogin) {
-        setCookie(COOKIE_NAMES.JWT, data.userRegister.accessToken, 3);
-        setUser(getUserFormCookies());
-        history.push('/');
-      }
-    });
-  }, []);
+  const registerRequest = useCallback(
+    ({ email, password, autoLogin, name }: IVars) => {
+      register({
+        variables: {
+          email,
+          password,
+          name,
+        },
+      }).then(({ data }) => {
+        if (autoLogin) {
+          setCookie(COOKIE_NAMES.JWT, data.userRegister.accessToken, 3);
+          setUser(getUserFormCookies());
+          sessionStorage.setItem(COOKIE_NAMES.JWT, getUserFormCookies().token);
+          history.push('/');
+        }
+      });
+    },
+    [register],
+  );
 
-  const logout = () => {
+  useEffect(() => {
+    sessionStorage.setItem(COOKIE_NAMES.JWT, user.token);
+  }, [user]);
+
+  const logout = async () => {
     eraseCookie(COOKIE_NAMES.JWT);
     setUser({});
+    sessionStorage.removeItem(COOKIE_NAMES.JWT);
+    await apolloClient.resetStore();
   };
 
   return {
@@ -101,6 +114,6 @@ export default function () {
     loginState,
     registerState,
     user,
-    isAuthenticated: !!getUserFormCookies()?.email,
+    isAuthenticated: !!getUserFormCookies()?.id,
   };
 }

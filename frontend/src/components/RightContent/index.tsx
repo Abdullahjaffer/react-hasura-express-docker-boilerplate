@@ -20,8 +20,6 @@ const GlobalHeaderRight: React.FC = () => {
     className = `${styles.right}  ${styles.dark}`;
   }
 
-  console.log(initialState);
-
   return (
     <Space className={className}>
       <Switch
