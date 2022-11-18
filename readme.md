@@ -55,6 +55,8 @@ Please use [conventional-commit](https://www.conventionalcommits.org) message fo
 
 It should be look like: `feat: changed something` (optional: add scope for specific context i.e. `feat(feature-name): changed something`)
 
+subject should start with an issue number if available like `feat: 0000 some work message`
+
 ```
 <type>[optional scope]: <subject>
 
