@@ -29,7 +29,47 @@ yarn
 ```
 This installs husky for git precommit hooks at root of project.
 
-Now, you can run the following command to setup both frontend and backend applications. This also creates a .env file for backend
+Now, you can run the following command to setup both frontend and backend application. This also creates a .env file for backend
 ```bash
 ./scripts/setup.sh
 ```
+
+## Development
+
+Run the following command to start the backend server. This requires docker-compose to be installed.
+```bash
+./scripts/start-backend-dev.sh
+```
+`More development documents can be found in the backend and frontend folders.`
+
+### Github
+
+Please use [conventional-commit](https://www.conventionalcommits.org) message format for your pull-request and commit messages to have a clean commit history.
+
+It should be look like: `feat: changed something` (optional: add scope for specific context i.e. `feat(feature-name): changed something`)
+
+```
+<type>[optional scope]: <subject>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+Legend:
+
+- type: what type of change this commit contains
+- scope: what item of code this commit is changing
+- subject: a short description of the changes
+- body (optional): a more in-depth description of the changes
+
+Types:
+
+- feat: A new feature
+- fix: A bug fix
+- wip: While working on a fix/feature
+- docs: Documentation only changes
+- style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- refactor: A code change that neither fixes a bug or adds a feature
+- test: Adding missing tests
+- chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
