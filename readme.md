@@ -97,3 +97,4 @@ Types:
 - Add deployment section
 - Add environment variable secions
 - Add standard version package (!important)
+- move documentation to a docs folder
