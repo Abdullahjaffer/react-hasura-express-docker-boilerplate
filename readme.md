@@ -23,6 +23,13 @@ This service is described in docker and is used with all the components describe
 
 ## Setup
 
+Following packages should be installed first
+- nodejs (version > 16)
+- yarn
+- docker-compose
+- postgres
+- hasura-cli
+
 Run this after cloning
 ```bash
 yarn
@@ -73,3 +80,18 @@ Types:
 - refactor: A code change that neither fixes a bug or adds a feature
 - test: Adding missing tests
 - chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
+
+
+## TODO
+
+### Errors
+
+- Still new
+
+### Improvements
+
+- Add project struture section (!important)
+- Add testing section
+- Add deployment section
+- Add environment variable secions
+- Add standard version package (!important)
